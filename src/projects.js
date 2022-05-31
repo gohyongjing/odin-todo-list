@@ -13,7 +13,9 @@ const projects = (() => {
         function getName() {return projectName;}
 
         function addTask(taskName) {
-            _tasks.push(_makeTask(taskName));
+            const task = _makeTask(taskName);
+            _tasks.push(task);
+            return task;
         }
 
         function getTasks() {

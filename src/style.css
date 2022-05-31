@@ -1,6 +1,7 @@
 .projects {
     background-color: lightyellow;
     border: 2px solid yellow;
+    font-size: 40px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -18,5 +19,23 @@
 
 .task {
     background-color:lightpink;
+    padding: 10px;
     border: 2px solid pink;
+}
+
+form {
+    background-color: aliceblue;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+form > input,
+form > label,
+div > input {
+    font-size: 30px;
 }
