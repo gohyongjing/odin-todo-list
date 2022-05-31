@@ -1,1 +1,3 @@
-console.log("helloe");
+import dom from "./dom.js";
+
+dom();
