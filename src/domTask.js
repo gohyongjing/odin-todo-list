@@ -1,74 +1,74 @@
 function createTaskForm(projectDiv, project) {
-        const form = document.createElement('form');
-        const taskNameLabel = document.createElement('label');
-        const taskNameInput = document.createElement('input');
-        const taskDescriptionLabel = document.createElement('label');
-        const taskDescriptionInput = document.createElement('input');
-        const taskDueDateLabel = document.createElement('label');
-        const taskDueDateInput = document.createElement('input');
-        const taskPriorityLabel = document.createElement('label');
-        const taskPriorityInput = document.createElement('input');
-        const addTaskButton = document.createElement('input');
+    const form = document.createElement('form');
+    const taskNameLabel = document.createElement('label');
+    const taskNameInput = document.createElement('input');
+    const taskDescriptionLabel = document.createElement('label');
+    const taskDescriptionInput = document.createElement('input');
+    const taskDueDateLabel = document.createElement('label');
+    const taskDueDateInput = document.createElement('input');
+    const taskPriorityLabel = document.createElement('label');
+    const taskPriorityInput = document.createElement('input');
+    const addTaskButton = document.createElement('input');
 
-        taskNameLabel.innerText = "Task Name";
-        taskNameLabel.htmlFor = "task-name";
+    taskNameLabel.innerText = "Task Name";
+    taskNameLabel.htmlFor = "task-name";
 
-        taskNameInput.id = "task-name";
+    taskNameInput.id = "task-name";
 
-        taskDescriptionLabel.innerText = "Description";
-        taskDescriptionLabel.htmlFor = "task-description";
+    taskDescriptionLabel.innerText = "Description";
+    taskDescriptionLabel.htmlFor = "task-description";
 
-        taskDescriptionInput.id = "task-description";
+    taskDescriptionInput.id = "task-description";
 
-        taskDueDateLabel.innerText = "Due Date";
-        taskDueDateLabel.htmlFor = "task-due-date";
+    taskDueDateLabel.innerText = "Due Date";
+    taskDueDateLabel.htmlFor = "task-due-date";
 
-        taskDueDateInput.id = "task-due-date";
-        taskDueDateInput.type = 'date';
+    taskDueDateInput.id = "task-due-date";
+    taskDueDateInput.type = 'date';
 
-        taskPriorityLabel.innerText = "Priority";
-        taskPriorityLabel.htmlFor = "task-priority";
+    taskPriorityLabel.innerText = "Priority";
+    taskPriorityLabel.htmlFor = "task-priority";
 
-        taskPriorityInput.id = "task-priority";
-        taskPriorityInput.type = "number";
+    taskPriorityInput.id = "task-priority";
+    taskPriorityInput.type = "number";
 
-        addTaskButton.value = "Add Task";
-        addTaskButton.type = "button";
+    addTaskButton.value = "Add Task";
+    addTaskButton.type = "button";
 
-        addTaskButton.addEventListener("click", (e) => {
-            const taskName = taskNameInput.value === "" ? "Unnamed task" : taskNameInput.value;
-            const taskDescription = taskDescriptionInput.value;
-            const taskDueDate = taskDueDateInput.value;
-            const taskPriority = taskPriorityInput.value;
-            const task = project.addTask(taskName, taskDescription, taskDueDate, taskPriority);
-            projectDiv.appendChild(createTaskDiv(task));
-            form.remove();
-        })
+    addTaskButton.addEventListener("click", (e) => {
+        const taskName = taskNameInput.value === "" ? "Unnamed task" : taskNameInput.value;
+        const taskDescription = taskDescriptionInput.value;
+        const taskDueDate = taskDueDateInput.value;
+        const taskPriority = taskPriorityInput.value;
+        const task = project.addTask(taskName, taskDescription, taskDueDate, taskPriority);
+        projectDiv.appendChild(createTaskDiv(task, project));
+        form.remove();
+    })
 
-        form.appendChild(taskNameLabel);
-        form.appendChild(taskNameInput);
-        form.appendChild(taskDescriptionLabel);
-        form.appendChild(taskDescriptionInput);
-        form.appendChild(taskDueDateLabel);
-        form.appendChild(taskDueDateInput);
-        form.appendChild(taskPriorityLabel);
-        form.appendChild(taskPriorityInput);
-        form.appendChild(addTaskButton);
+    form.appendChild(taskNameLabel);
+    form.appendChild(taskNameInput);
+    form.appendChild(taskDescriptionLabel);
+    form.appendChild(taskDescriptionInput);
+    form.appendChild(taskDueDateLabel);
+    form.appendChild(taskDueDateInput);
+    form.appendChild(taskPriorityLabel);
+    form.appendChild(taskPriorityInput);
+    form.appendChild(addTaskButton);
 
-        form.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
+    form.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
 
-        return form;
-    }
+    return form;
+}
 
-function createTaskDiv(task) {
+function createTaskDiv(task, project) {
     function toggleTaskDiv() {
         if (divExpanded) {
             const toRemove = [];
             for (const element of taskDiv.children) {
                 console.log(element);
-                if (!element.classList.contains("task-name")) {
+                if (!element.classList.contains("header")) {
                     toRemove.push(element);
                 }
             }
@@ -83,7 +83,9 @@ function createTaskDiv(task) {
 
     let divExpanded = false;
     const taskDiv = document.createElement('div');
+    const taskHeader = document.createElement('div');
     const taskNameDiv = document.createElement('div');
+    const deleteButton = document.createElement('input');
     const taskDescriptionDiv = document.createElement('div');
     const taskDueDateDiv = document.createElement('div');
     const taskPriorityDiv = document.createElement('div');
@@ -93,13 +95,26 @@ function createTaskDiv(task) {
     taskNameDiv.innerText = task.getName();
     taskNameDiv.classList.add("task-name");
 
+    deleteButton.type = 'button';
+    deleteButton.value = 'X';
+    deleteButton.classList.add('delete');
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        taskDiv.remove();
+        project.removeTask(task);
+    });
+
+    taskHeader.classList.add('header');
+    taskHeader.appendChild(taskNameDiv);
+    taskHeader.appendChild(deleteButton);
+
     taskDescriptionDiv.innerText = task.getDescription();
 
     taskDueDateDiv.innerText = `Due Date: ${task.getDueDate()}`;
 
     taskPriorityDiv.innerText = `Priority: ${task.getPriority()}`;
 
-    taskDiv.appendChild(taskNameDiv);
+    taskDiv.appendChild(taskHeader);
     taskDiv.addEventListener("click", (e) => {
         e.stopPropagation();
         toggleTaskDiv();
@@ -108,4 +123,4 @@ function createTaskDiv(task) {
     return taskDiv;
 }
 
-export {createTaskForm, createTaskDiv};
+export { createTaskForm, createTaskDiv };

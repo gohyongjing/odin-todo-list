@@ -1,5 +1,5 @@
 const projects = (() => {
-    const _projects = [];
+    let _projects = [];
 
     function _makeProject(projectName) {
         const _tasks = [];
@@ -24,8 +24,17 @@ const projects = (() => {
         function getTasks() {
             return Array(..._tasks);
         }
+        
+        function removeTask(task) {
+            for (let i = 0; i < _tasks.length; i++) {
+                if (task === _tasks[i]) {
+                    _tasks.splice(i, 1);
+                    break;
+                }
+            }
+        }
 
-        return {getName, addTask, getTasks};
+        return {getName, addTask, getTasks, removeTask};
     }
 
     function addProject(projectName) {
@@ -38,7 +47,16 @@ const projects = (() => {
         return Array(..._projects);
     }
 
-    return {addProject, getProjects};
+    function removeProject(project) {
+        for (let i = 0; i < _projects.length; i++) {
+            if (project === _projects[i]) {
+                _projects.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    return {addProject, getProjects, removeProject};
 })();
 
 export default projects;
