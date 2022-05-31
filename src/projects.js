@@ -4,16 +4,19 @@ const projects = (() => {
     function _makeProject(projectName) {
         const _tasks = [];
 
-        function _makeTask(taskName) {
-            function get_name() {return taskName;}
+        function _makeTask(taskName, taskDescription, taskDueDate, taskPriority) {
+            function getName() {return taskName;}
+            function getDescription() {return taskDescription;}
+            function getDueDate() {return taskDueDate;}
+            function getPriority() {return taskPriority;}
 
-            return {get_name};
+            return {getName, getDescription, getDueDate, getPriority};
         }
 
         function getName() {return projectName;}
 
-        function addTask(taskName) {
-            const task = _makeTask(taskName);
+        function addTask(taskName, taskDescription, taskDueDate, taskPriority) {
+            const task = _makeTask(taskName, taskDescription, taskDueDate, taskPriority);
             _tasks.push(task);
             return task;
         }

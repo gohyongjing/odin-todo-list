@@ -1,6 +1,7 @@
 .projects {
     background-color: lightyellow;
     border: 2px solid yellow;
+    border-radius: 10px;
     font-size: 40px;
     padding: 20px;
     display: flex;
@@ -11,6 +12,7 @@
 .project {
     background-color: lightsalmon;
     border: 2px solid salmon;
+    border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -21,6 +23,12 @@
     background-color:lightpink;
     padding: 10px;
     border: 2px solid pink;
+    border-radius: 10px;
+}
+
+.project > .project-name,
+.task > .task-name {
+    font-weight: 600;
 }
 
 form {
@@ -29,7 +37,7 @@ form {
     border-radius: 5px;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 5fr;
     grid-template-rows: auto;
     gap: 10px;
 }
