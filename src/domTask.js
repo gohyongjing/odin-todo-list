@@ -67,7 +67,6 @@ function createTaskDiv(task, project) {
         if (divExpanded) {
             const toRemove = [];
             for (const element of taskDiv.children) {
-                console.log(element);
                 if (!element.classList.contains("header")) {
                     toRemove.push(element);
                 }

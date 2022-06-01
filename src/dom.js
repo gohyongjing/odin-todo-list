@@ -53,11 +53,11 @@ const dom = () => {
         return content;
     }
 
-    let project1 = projects.addProject('project1');
+    /*let project1 = projects.addProject('project1');
     let project2 = projects.addProject('project2');
     project1.addTask('task1', 'A random task', "3/4/2022", 1);
     project1.addTask('task2', 'Another random task', "5/6/2022", 1);
-    project2.addTask('task3', 'A high priority task', "7/8/2022", 100);
+    project2.addTask('task3', 'A high priority task', "7/8/2022", 100);*/
 
     const body = document.querySelector('body');
     body.appendChild(getContent());
